@@ -1,3 +1,11 @@
 {
-  "cSpell.words": ["pinia", "rushstack"]
+  "editor.rulers": [80, 120],
+  "cSpell.words": ["camelcase", "ecma", "pinia", "rushstack"],
+  "cSpell.language": "en,fr",
+  "cSpell.languageSettings": [
+    {
+      "languageId": ["en", "fr"],
+      "caseSensitive": false
+    }
+  ]
 }
