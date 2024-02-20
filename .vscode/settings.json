@@ -1,6 +1,17 @@
 {
   "editor.rulers": [80, 120],
-  "cSpell.words": ["camelcase", "Codacy", "ecma", "pinia", "rushstack", "Vetur"],
+  "cSpell.words": [
+    "camelcase",
+    "Codacy",
+    "ecma",
+    "fontawesome",
+    "fortawesome",
+    "pinia",
+    "rushstack",
+    "tsbuildinfo",
+    "Vetur",
+    "vueuse"
+  ],
   "cSpell.language": "en,fr",
   "cSpell.languageSettings": [
     {
