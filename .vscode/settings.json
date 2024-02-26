@@ -2,11 +2,13 @@
   "editor.rulers": [80, 120],
   "cSpell.words": [
     "camelcase",
+    "clickoutside",
     "Codacy",
     "ecma",
     "fontawesome",
     "fortawesome",
     "pinia",
+    "Popconfirm",
     "rushstack",
     "tsbuildinfo",
     "Vetur",

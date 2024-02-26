@@ -16,7 +16,18 @@ const router = createRouter({
         {
           path: "/adherents",
           name: "adherents",
-          component: () => import("@/views/adherents/AdherentPage.vue"),
+          children: [
+            {
+              path: "",
+              name: "adherents.list",
+              component: () => import("@/views/adherents/AdherentPage.vue"),
+            },
+            {
+              path: ":id(\\d+)",
+              name: "adherents.view",
+              component: () => import("@/views/adherents/AdherentView.vue"),
+            },
+          ],
         },
       ],
     },

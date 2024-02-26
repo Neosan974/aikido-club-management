@@ -23,6 +23,9 @@ dependencies:
   '@vueuse/core':
     specifier: ^10.8.0
     version: 10.8.0(vue@3.4.15)
+  '@vueuse/router':
+    specifier: ^10.8.0
+    version: 10.8.0(vue-router@4.2.5)(vue@3.4.15)
   pinia:
     specifier: ^2.1.7
     version: 2.1.7(typescript@5.3.2)(vue@3.4.15)
@@ -1533,6 +1536,19 @@ packages:
 
   /@vueuse/metadata@10.8.0:
     resolution: {integrity: sha512-Nim/Vle5OgXcXhAvGOgkJQXB1Yb+Kq/fMbLuv3YYDYbiQrwr39ljuD4k9fPeq4yUyokYRo2RaNQmbbIMWB/9+w==}
+    dev: false
+
+  /@vueuse/router@10.8.0(vue-router@4.2.5)(vue@3.4.15):
+    resolution: {integrity: sha512-5WI5QYEs2XLC01JGrOC8dMDAkNsp3rOvvwed2O2gHUQt/OQ3cu3wLu8RfI0CZfoetDrj/LDcIYDcGhh70ST6+Q==}
+    peerDependencies:
+      vue-router: '>=4.0.0-rc.1'
+    dependencies:
+      '@vueuse/shared': 10.8.0(vue@3.4.15)
+      vue-demi: 0.14.7(vue@3.4.15)
+      vue-router: 4.2.5(vue@3.4.15)
+    transitivePeerDependencies:
+      - '@vue/composition-api'
+      - vue
     dev: false
 
   /@vueuse/shared@10.8.0(vue@3.4.15):
