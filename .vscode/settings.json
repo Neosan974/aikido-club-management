@@ -1,5 +1,14 @@
 {
-  "editor.rulers": [80, 120],
+  "[typescript]": {
+    "editor.defaultFormatter": "denoland.vscode-deno"
+  },
+  "cSpell.language": "en,fr",
+  "cSpell.languageSettings": [
+    {
+      "caseSensitive": false,
+      "languageId": ["en", "fr"]
+    }
+  ],
   "cSpell.words": [
     "camelcase",
     "clickoutside",
@@ -14,11 +23,8 @@
     "Vetur",
     "vueuse"
   ],
-  "cSpell.language": "en,fr",
-  "cSpell.languageSettings": [
-    {
-      "languageId": ["en", "fr"],
-      "caseSensitive": false
-    }
-  ]
+  "deno.enablePaths": ["supabase/functions"],
+  "deno.lint": true,
+  "deno.unstable": true,
+  "editor.rulers": [80, 120]
 }
