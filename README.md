@@ -1,6 +1,6 @@
-# aikido-club-management-web
+# aikido-club-management
 
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/caaa40732ef44db3b9da888b40d6eda3)](https://app.codacy.com/gh/Neosan974/aikido-club-management-web/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/caaa40732ef44db3b9da888b40d6eda3)](https://app.codacy.com/gh/Neosan974/aikido-club-management/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 
 This template should help get you started developing with Vue 3 in Vite.
 
