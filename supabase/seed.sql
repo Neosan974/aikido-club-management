@@ -1,6 +1,3 @@
-SET
-    ANSI_NULLS ON;
-
 INSERT INTO
     PUBLIC.GRADES (name, id)
 VALUES
