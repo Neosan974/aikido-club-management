@@ -1,8 +1,9 @@
-SET ANSI_NULLS ON;
+SET
+    ANSI_NULLS ON;
 
-INSERT INTO public.grades(
-	name, id)
-	VALUES 
+INSERT INTO
+    PUBLIC.GRADES (name, id)
+VALUES
     ('Kyu 6', 1),
     ('Kyu 5', 2),
     ('Kyu 4', 3),
@@ -15,5 +16,4 @@ INSERT INTO public.grades(
     ('Dan 4', 10),
     ('Dan 5', 11),
     ('Dan 6', 12),
-    ('Dan 7', 13)
-;
+    ('Dan 7', 13);
