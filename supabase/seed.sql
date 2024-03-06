@@ -1,6 +1,6 @@
-insert into public.grades(
+INSERT INTO public.grades(
 	name, id)
-	values 
+	VALUES 
     ('Kyu 6', 1),
     ('Kyu 5', 2),
     ('Kyu 4', 3),
