@@ -1,3 +1,5 @@
+SET ANSI_NULLS ON;
+
 INSERT INTO public.grades(
 	name, id)
 	VALUES 
