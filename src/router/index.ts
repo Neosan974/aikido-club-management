@@ -49,7 +49,8 @@ const router = createRouter({
 
 router.beforeEach(async (to) => {
   const { isAuthenticated } = useAuth();
-  if (!(await isAuthenticated()) && to.name !== "login") {
+  const isUserAuthenticated = await isAuthenticated();
+  if (!isUserAuthenticated && to.name !== "login") {
     // redirect the user to the login page
     return { name: "login" };
   } else {

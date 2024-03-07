@@ -1,5 +1,5 @@
 <template>
-  <NDataTable :data="adherents" :columns="columns" virtual-scroll :max-height="height - 250" :row-props="rowProps" />
+  <NDataTable :data="adherents" :columns="columns" virtual-scroll :max-height="height - 350" :row-props="rowProps" />
   <NDropdown
     placement="bottom-start"
     trigger="manual"

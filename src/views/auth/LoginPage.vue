@@ -22,7 +22,9 @@ import { useAuth } from "@/composables/auth";
 import type { Credentials } from "@/types/Credentials";
 import { NCard, NForm, NFormItem, NInput, NButton, type FormInst, type FormRules, useMessage } from "naive-ui";
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 
+const router = useRouter();
 const message = useMessage();
 const formRef = ref<FormInst | null>(null);
 const credentials = ref<Credentials>({
@@ -53,7 +55,7 @@ async function submit() {
       throw Error(result.error.stack);
     }
     if (await isAuthenticated()) {
-      console.log("connected");
+      router.push({ name: "dashboard" });
     }
   } catch (error) {
     console.error(error);
