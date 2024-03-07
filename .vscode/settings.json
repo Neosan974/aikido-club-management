@@ -29,5 +29,6 @@
   "deno.enablePaths": ["supabase/functions"],
   "deno.lint": true,
   "deno.unstable": true,
-  "editor.rulers": [80, 120]
+  "editor.rulers": [80, 120],
+  "cSpell.enableFiletypes": ["!sql"]
 }
