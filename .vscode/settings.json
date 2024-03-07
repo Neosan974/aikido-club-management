@@ -1,12 +1,12 @@
 {
   "[typescript]": {
-    "editor.defaultFormatter": "denoland.vscode-deno"
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "cSpell.language": "en,fr",
   "cSpell.languageSettings": [
     {
       "caseSensitive": false,
-      "languageId": ["en", "fr"]
+      "languageId": []
     }
   ],
   "cSpell.words": [
@@ -21,6 +21,7 @@
     "pkey",
     "Popconfirm",
     "rushstack",
+    "SUPABASE",
     "tsbuildinfo",
     "Vetur",
     "vueuse"

@@ -2,6 +2,9 @@
   <header>
     <MainHeader />
   </header>
+  <nav>
+    <MainNav />
+  </nav>
   <main>
     <RouterView />
   </main>
@@ -9,6 +12,7 @@
 
 <script setup lang="ts">
 import MainHeader from "@/layout/MainHeader.vue";
+import MainNav from "@/layout/MainNav.vue";
 </script>
 
 <style>
