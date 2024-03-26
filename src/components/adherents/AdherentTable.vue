@@ -107,7 +107,7 @@ const dropdownOptions: DropdownOption[] = [
   {
     label: () => (
       <NText type="info">
-        <FontAwesomeIcon icon={faPen} /> Edit
+        <FontAwesomeIcon icon={faPen} /> Modifier
       </NText>
     ),
     key: "edit",
@@ -115,7 +115,7 @@ const dropdownOptions: DropdownOption[] = [
   {
     label: () => (
       <NText type="error">
-        <FontAwesomeIcon icon={faTrash} /> Delete
+        <FontAwesomeIcon icon={faTrash} /> Supprimer
       </NText>
     ),
     key: "delete",
