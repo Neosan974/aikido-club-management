@@ -39,6 +39,7 @@ import type { MaybeArray } from "naive-ui/es/_utils";
 import type { OnUpdateValue } from "naive-ui/es/dropdown/src/interface";
 import { useRouter } from "vue-router";
 import dayjs from "dayjs";
+import { supabase } from "@/supabase";
 
 const { adherents, loading } = defineProps<{ adherents: Adherent[]; loading: boolean }>();
 const { height } = useWindowSize();
@@ -52,8 +53,21 @@ const x = ref<number>(0);
 const y = ref<number>(0);
 const selectedAdherent = ref<Adherent | null>(null);
 
-function deleteAdherent() {
-  message.success("Adhérent supprimé");
+async function deleteAdherent() {
+  if (!selectedAdherent.value?.id) {
+    return;
+  }
+
+  const { error } = await supabase
+    .from("adherents")
+    .delete()
+    .eq("id", selectedAdherent.value?.id);
+  if (!error) {
+    message.success("Adhérent supprimé");
+  } else {
+    console.error(error);
+    message.error("Impossible de supprimer l'adhérent");
+  }
 }
 
 const handleDropdownSelect: MaybeArray<OnUpdateValue> = (value: string) => {
@@ -63,6 +77,7 @@ const handleDropdownSelect: MaybeArray<OnUpdateValue> = (value: string) => {
 
   switch (value) {
     case "edit":
+      // TODO: Dispatch event instead of managing the logic in the component
       router.push({
         name: "adherents.view",
         params: {
@@ -78,8 +93,9 @@ const handleDropdownSelect: MaybeArray<OnUpdateValue> = (value: string) => {
         content: "Voulez-vous vraiment supprimer un adhérent ?",
         positiveText: "Oui, supprimer",
         negativeText: "Non, annuler",
-        onPositiveClick() {
-          deleteAdherent();
+        // TODO: Dispatch event instead of managing the logic in the component
+        async onPositiveClick() {
+          await deleteAdherent();
         },
       });
       break;

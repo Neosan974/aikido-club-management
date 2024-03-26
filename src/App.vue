@@ -64,7 +64,7 @@ const theme: GlobalThemeOverrides = {
   <NConfigProvider :theme-overrides="theme">
     <NLoadingBarProvider>
       <NDialogProvider>
-        <NMessageProvider>
+        <NMessageProvider placement="top-right">
           <RouterView />
           <NGlobalStyle />
         </NMessageProvider>
