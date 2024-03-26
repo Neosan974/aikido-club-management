@@ -1,5 +1,12 @@
 <script setup lang="ts">
-import { NConfigProvider, NGlobalStyle, NMessageProvider, NDialogProvider, type GlobalThemeOverrides } from "naive-ui";
+import {
+  NConfigProvider,
+  NGlobalStyle,
+  NMessageProvider,
+  NDialogProvider,
+  NLoadingBarProvider,
+  type GlobalThemeOverrides,
+} from "naive-ui";
 const theme: GlobalThemeOverrides = {
   common: {},
 };
@@ -7,12 +14,14 @@ const theme: GlobalThemeOverrides = {
 
 <template>
   <NConfigProvider :theme-overrides="theme">
-    <NDialogProvider>
-      <NMessageProvider>
-        <RouterView />
-        <NGlobalStyle />
-      </NMessageProvider>
-    </NDialogProvider>
+    <NLoadingBarProvider>
+      <NDialogProvider>
+        <NMessageProvider>
+          <RouterView />
+          <NGlobalStyle />
+        </NMessageProvider>
+      </NDialogProvider>
+    </NLoadingBarProvider>
   </NConfigProvider>
 </template>
 

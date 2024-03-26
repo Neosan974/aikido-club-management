@@ -63,10 +63,6 @@ const handleDropdownSelect: MaybeArray<OnUpdateValue> = (value: string) => {
 
   switch (value) {
     case "edit":
-      if (!selectedAdherent.value) {
-        return;
-      }
-
       router.push({
         name: "adherents.view",
         params: {

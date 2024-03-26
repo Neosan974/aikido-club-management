@@ -36,7 +36,7 @@ const router = createRouter({
               component: () => import("@/views/adherents/AdherentPage.vue"),
             },
             {
-              path: ":id(\\d+)",
+              path: ":id",
               name: "adherents.view",
               component: () => import("@/views/adherents/AdherentView.vue"),
             },
