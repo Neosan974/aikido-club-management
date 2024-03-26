@@ -16,7 +16,7 @@ const warningHue = 30;
 const infoHue = 210;
 
 const messageBgColor = (hue: number) => `hsla(${hue}, 100%, 65%, 0.6)`;
-const messageTxtColor = (hue: number) => "white";
+const messageTxtColor = () => "white";
 
 const theme: GlobalThemeOverrides = {
   common: {
@@ -46,15 +46,15 @@ const theme: GlobalThemeOverrides = {
     infoColorSuppl: hue2hex(infoHue),
   },
   Message: {
-    textColorSuccess: messageTxtColor(successHue),
+    textColorSuccess: messageTxtColor(),
     colorSuccess: messageBgColor(successHue),
-    textColorError: messageTxtColor(errorHue),
+    textColorError: messageTxtColor(),
     colorError: messageBgColor(errorHue),
-    textColorWarning: messageTxtColor(warningHue),
+    textColorWarning: messageTxtColor(),
     colorWarning: messageBgColor(warningHue),
-    textColorInfo: messageTxtColor(infoHue),
+    textColorInfo: messageTxtColor(),
     colorInfo: messageBgColor(infoHue),
-    textColorLoading: messageTxtColor(successHue),
+    textColorLoading: messageTxtColor(),
     colorLoading: messageBgColor(successHue),
   },
 };
