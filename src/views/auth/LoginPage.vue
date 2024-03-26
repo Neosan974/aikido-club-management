@@ -49,7 +49,6 @@ const { login, isAuthenticated } = useAuth();
 async function submit() {
   try {
     await formRef.value?.validate();
-    // execute();
     const result = await login(credentials.value);
     if (result.error) {
       throw Error(result.error.stack);

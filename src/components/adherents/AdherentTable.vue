@@ -1,5 +1,12 @@
 <template>
-  <NDataTable :data="adherents" :columns="columns" virtual-scroll :max-height="height - 350" :row-props="rowProps" />
+  <NDataTable
+    :data="adherents ?? []"
+    :columns="columns"
+    virtual-scroll
+    :max-height="height - 350"
+    :row-props="rowProps"
+    :loading="loading"
+  />
   <NDropdown
     placement="bottom-start"
     trigger="manual"
@@ -10,21 +17,19 @@
     @clickoutside="showDropDown = !showDropDown"
     @select="handleDropdownSelect"
   />
-  <NModal
-    preset="confirm"
-    title="Supprimer un adhérent ?"
-    content="Voulez-vous vraiment supprimer un adhérent ?"
-    positive-text="Oui, supprimer"
-    negative-text="Non, annuler"
-    :show="showDeleteModal"
-    @hide="showDeleteModal = false"
-    @positive-click="deleteAdherent"
-  />
 </template>
 
 <script setup lang="tsx">
 import type { Adherent } from "@/model/Adherent";
-import { NDataTable, NDropdown, NText, NModal, type DataTableColumns, type DropdownOption, useMessage } from "naive-ui";
+import {
+  NDataTable,
+  NDropdown,
+  NText,
+  type DataTableColumns,
+  type DropdownOption,
+  useMessage,
+  useDialog,
+} from "naive-ui";
 import { useWindowSize } from "@vueuse/core";
 import { nextTick, ref } from "vue";
 import type { CreateRowProps } from "naive-ui/es/data-table/src/interface";
@@ -33,18 +38,24 @@ import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
 import type { MaybeArray } from "naive-ui/es/_utils";
 import type { OnUpdateValue } from "naive-ui/es/dropdown/src/interface";
 import { useRouter } from "vue-router";
+import dayjs from "dayjs";
 
-const { adherents } = defineProps<{ adherents: Adherent[] }>();
+const { adherents, loading } = defineProps<{ adherents: Adherent[]; loading: boolean }>();
 const { height } = useWindowSize();
 
 const router = useRouter();
 const message = useMessage();
+const deleteDialog = useDialog();
 
 const showDropDown = ref<boolean>(false);
 const x = ref<number>(0);
 const y = ref<number>(0);
-const showDeleteModal = ref<boolean>(false);
 const selectedAdherent = ref<Adherent | null>(null);
+
+function deleteAdherent() {
+  message.success("Adhérent supprimé");
+}
+
 const handleDropdownSelect: MaybeArray<OnUpdateValue> = (value: string) => {
   if (!selectedAdherent.value) {
     return;
@@ -66,7 +77,15 @@ const handleDropdownSelect: MaybeArray<OnUpdateValue> = (value: string) => {
       break;
     case "delete":
       showDropDown.value = false;
-      showDeleteModal.value = true;
+      deleteDialog.warning({
+        title: "Supprimer un adhérent ?",
+        content: "Voulez-vous vraiment supprimer un adhérent ?",
+        positiveText: "Oui, supprimer",
+        negativeText: "Non, annuler",
+        onPositiveClick() {
+          deleteAdherent();
+        },
+      });
       break;
     default:
       console.error("Unknown selection", selectedAdherent.value);
@@ -122,7 +141,7 @@ const columns: DataTableColumns<Adherent> = [
   {
     key: "birthDate",
     title: () => <span>Birth date</span>,
-    render: ({ birthDate }: Adherent) => <span>{birthDate?.toDateString()}</span>,
+    render: ({ birthDate }: Adherent) => <span>{dayjs(birthDate).format("DD MMMM YYYY")}</span>,
   },
   {
     key: "address",
@@ -130,8 +149,4 @@ const columns: DataTableColumns<Adherent> = [
     render: ({ address }: Adherent) => <span>{address}</span>,
   },
 ];
-
-function deleteAdherent() {
-  message.success("Adhérent supprimé");
-}
 </script>

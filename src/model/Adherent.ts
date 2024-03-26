@@ -2,7 +2,7 @@ export type Adherent = {
   id?: string;
   firstName?: string;
   lastName?: string;
-  birthDate?: Date;
+  birthDate?: string;
   email?: string;
   address?: string;
 };
