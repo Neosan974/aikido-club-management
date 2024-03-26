@@ -7,8 +7,56 @@ import {
   NLoadingBarProvider,
   type GlobalThemeOverrides,
 } from "naive-ui";
+import { hue2hex } from "@/utils/colors";
+
+const primaryHue = 230;
+const successHue = 125;
+const errorHue = 0;
+const warningHue = 30;
+const infoHue = 210;
+
+const messageBgColor = (hue: number) => `hsla(${hue}, 100%, 65%, 0.6)`;
+const messageTxtColor = (hue: number) => "white";
+
 const theme: GlobalThemeOverrides = {
-  common: {},
+  common: {
+    primaryColor: hue2hex(primaryHue),
+    primaryColorHover: hue2hex(primaryHue),
+    primaryColorPressed: hue2hex(primaryHue),
+    primaryColorSuppl: hue2hex(primaryHue),
+
+    successColor: hue2hex(successHue),
+    successColorHover: hue2hex(successHue),
+    successColorPressed: hue2hex(successHue),
+    successColorSuppl: hue2hex(successHue),
+
+    warningColor: hue2hex(warningHue),
+    warningColorHover: hue2hex(warningHue),
+    warningColorPressed: hue2hex(warningHue),
+    warningColorSuppl: hue2hex(warningHue),
+
+    errorColor: hue2hex(errorHue),
+    errorColorHover: hue2hex(errorHue),
+    errorColorPressed: hue2hex(errorHue),
+    errorColorSuppl: hue2hex(errorHue),
+
+    infoColor: hue2hex(infoHue),
+    infoColorHover: hue2hex(infoHue),
+    infoColorPressed: hue2hex(infoHue),
+    infoColorSuppl: hue2hex(infoHue),
+  },
+  Message: {
+    textColorSuccess: messageTxtColor(successHue),
+    colorSuccess: messageBgColor(successHue),
+    textColorError: messageTxtColor(errorHue),
+    colorError: messageBgColor(errorHue),
+    textColorWarning: messageTxtColor(warningHue),
+    colorWarning: messageBgColor(warningHue),
+    textColorInfo: messageTxtColor(infoHue),
+    colorInfo: messageBgColor(infoHue),
+    textColorLoading: messageTxtColor(successHue),
+    colorLoading: messageBgColor(successHue),
+  },
 };
 </script>
 
