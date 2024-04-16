@@ -7,7 +7,7 @@
       <NInput type="text" v-model:value="reactiveAdherent.firstName" />
     </NFormItem>
     <NFormItem label="Date de naissance" path="birthDate">
-      <NDatePicker type="date" clearable v-model:value="birthDate" format="dd/MM/yyyy" />
+      <NDatePicker style="width: 100%" type="date" clearable v-model:value="birthDate" format="dd/MM/yyyy" />
     </NFormItem>
     <NFormItem label="Email" path="email">
       <NInput type="text" clearable v-model:value="reactiveAdherent.email" :input-props="{ type: 'email' }" />
@@ -19,20 +19,21 @@
 </template>
 
 <script setup lang="ts">
-import { toReactive } from "@vueuse/core";
+import { toReactive, toValue } from "@vueuse/core";
 import { NForm, NFormItem, NInput, NDatePicker, type FormRules } from "naive-ui";
 import type { Adherent } from "@/model/Adherent";
 import { computed } from "vue";
+import dayjs from "dayjs";
 
 const { adherent } = defineProps<{ adherent: Adherent }>();
 const reactiveAdherent = toReactive(adherent);
 const birthDate = computed({
   get() {
-    return reactiveAdherent.birthDate?.valueOf();
+    return new Date(reactiveAdherent.birthDate ?? 0).valueOf();
   },
   set(newValue) {
-    const newDate = new Date((newValue ?? birthDate!) as number);
-    reactiveAdherent.birthDate = newDate;
+    const newDate = new Date(Number(toValue(newValue ?? birthDate ?? "")));
+    reactiveAdherent.birthDate = dayjs(newDate).format("YYYY-MM-DD");
   },
 });
 const rules: FormRules = {

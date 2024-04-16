@@ -14,35 +14,62 @@
 </template>
 
 <script setup lang="ts">
-import { NCard, NFlex, useMessage } from "naive-ui";
+import { NCard, NFlex, useLoadingBar, useMessage } from "naive-ui";
 import SaveButton from "@/components/common/buttons/SaveButton.vue";
 import AdherentForm from "@/components/adherents/AdherentForm.vue";
 import type { Adherent } from "@/model/Adherent";
-import { onMounted, ref } from "vue";
+import { onBeforeMount, onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
+import { useAppFetch } from "@/composables/appFetch";
+import { supabase } from "@/supabase";
 
 const adherent = ref<Adherent | null>(null);
 const route = useRoute();
 const router = useRouter();
 const message = useMessage();
-const adherentId = Number(route?.params?.id);
+const loadingBar = useLoadingBar();
+const adherentId = route?.params?.id;
+const { canAbort, abort, execute } = useAppFetch<Adherent[]>(
+  `adherents?id=eq.${adherentId}`,
+  {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  },
+  {
+    immediate: false,
+    afterFetch(ctx) {
+      const [a] = ctx.data as Adherent[];
+      adherent.value = a;
+      return ctx;
+    },
+  },
+)
+  .get()
+  .json();
 
-function saveAdherent() {
-  console.log(adherent.value);
-  router.push({ name: "adherents.list" });
-  message.success("Adhérent enregistré");
+async function saveAdherent() {
+  loadingBar.start();
+  const { error } = await supabase.from("adherents").update(adherent.value).eq("id", adherentId).select();
+
+  if (!error) {
+    loadingBar.finish();
+    router.push({ name: "adherents.list" });
+    message.success("Adhérent enregistré");
+  } else {
+    loadingBar.error();
+    message.error("Impossible de sauvegarder l'adhérent");
+  }
 }
 
 onMounted(() => {
-  setTimeout(() => {
-    adherent.value = {
-      id: adherentId.toString(),
-      firstName: `firstName${adherentId}`,
-      lastName: `lastName${adherentId}`,
-      birthDate: new Date(),
-      email: `firstName${adherentId}.lastName${adherentId}@gmail.com`,
-      address: `${adherentId} rue Prout`,
-    };
-  }, 1000);
+  execute();
+});
+
+onBeforeMount(() => {
+  if (canAbort.value) {
+    abort();
+  }
 });
 </script>

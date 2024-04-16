@@ -2,7 +2,7 @@ import { createFetch } from "@vueuse/core";
 import { useAuth } from "./auth";
 
 export const useAppFetch = createFetch({
-  baseUrl: import.meta.env.VITE_SUPABASE_URL,
+  baseUrl: `${import.meta.env.VITE_SUPABASE_URL}/rest/v1/`,
   combination: "chain",
   options: {
     // beforeFetch in pre-configured instance will only run when the newly spawned instance do not pass beforeFetch
