@@ -4,6 +4,9 @@ jobs:
   CI:
     runs-on: ubuntu-latest
     steps:
+      - name: Setup environment
+        run: npm install -g pnpm && pnpm install
+
       - name: Check code formatting
         run: pnpm run format
 
