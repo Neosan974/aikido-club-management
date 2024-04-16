@@ -32,4 +32,8 @@ coverage
 
 .env
 
+seed.config.ts
 .snaplet/config.json
+.snaplet/dataExamples.json
+.snaplet/dataModel.json
+.snaplet/shapePredictions.json
