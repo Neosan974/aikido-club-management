@@ -21,15 +21,7 @@
 
 <script setup lang="tsx">
 import type { Adherent } from "@/model/Adherent";
-import {
-  NDataTable,
-  NDropdown,
-  NText,
-  type DataTableColumns,
-  type DropdownOption,
-  useMessage,
-  useDialog,
-} from "naive-ui";
+import { NDataTable, NDropdown, NText, type DataTableColumns, type DropdownOption } from "naive-ui";
 import { useWindowSize } from "@vueuse/core";
 import { nextTick, ref } from "vue";
 import type { CreateRowProps } from "naive-ui/es/data-table/src/interface";
@@ -37,38 +29,33 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
 import type { MaybeArray } from "naive-ui/es/_utils";
 import type { OnUpdateValue } from "naive-ui/es/dropdown/src/interface";
-import { useRouter } from "vue-router";
 import dayjs from "dayjs";
-import { supabase } from "@/supabase";
 
+const emit = defineEmits({
+  edit: (adherent: Adherent) => {
+    if (adherent) {
+      return true;
+    } else {
+      console.warn("Adherent not found");
+      return false;
+    }
+  },
+  delete: (adherent: Adherent) => {
+    if (adherent) {
+      return true;
+    } else {
+      console.warn("Adherent not found");
+      return false;
+    }
+  },
+});
 const { adherents, loading } = defineProps<{ adherents: Adherent[]; loading: boolean }>();
 const { height } = useWindowSize();
-
-const router = useRouter();
-const message = useMessage();
-const deleteDialog = useDialog();
 
 const showDropDown = ref<boolean>(false);
 const x = ref<number>(0);
 const y = ref<number>(0);
 const selectedAdherent = ref<Adherent | null>(null);
-
-async function deleteAdherent() {
-  if (!selectedAdherent.value?.id) {
-    return;
-  }
-
-  const { error } = await supabase
-    .from("adherents")
-    .delete()
-    .eq("id", selectedAdherent.value?.id);
-  if (!error) {
-    message.success("Adhérent supprimé");
-  } else {
-    console.error(error);
-    message.error("Impossible de supprimer l'adhérent");
-  }
-}
 
 const handleDropdownSelect: MaybeArray<OnUpdateValue> = (value: string) => {
   if (!selectedAdherent.value) {
@@ -77,27 +64,12 @@ const handleDropdownSelect: MaybeArray<OnUpdateValue> = (value: string) => {
 
   switch (value) {
     case "edit":
-      // TODO: Dispatch event instead of managing the logic in the component
-      router.push({
-        name: "adherents.view",
-        params: {
-          id: selectedAdherent.value?.id,
-        },
-      });
       showDropDown.value = false;
+      emit("edit", selectedAdherent.value);
       break;
     case "delete":
       showDropDown.value = false;
-      deleteDialog.warning({
-        title: "Supprimer un adhérent ?",
-        content: "Voulez-vous vraiment supprimer un adhérent ?",
-        positiveText: "Oui, supprimer",
-        negativeText: "Non, annuler",
-        // TODO: Dispatch event instead of managing the logic in the component
-        async onPositiveClick() {
-          await deleteAdherent();
-        },
-      });
+      emit("delete", selectedAdherent.value);
       break;
     default:
       console.error("Unknown selection", selectedAdherent.value);
