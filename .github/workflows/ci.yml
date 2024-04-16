@@ -12,15 +12,15 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-          cache: "pnpm"
+          cache: "npm"
       - name: Setup environment
-        run: npm install -g pnpm && pnpm install
+        run: npm install -g npm && npm install
 
       - name: Check code formatting
-        run: pnpm run format
+        run: npm run format
 
       - name: Lint
-        run: pnpm run lint
+        run: npm run lint
 
       - name: Type check
-        run: pnpm run type-check
+        run: npm run type-check
