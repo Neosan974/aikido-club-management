@@ -1,3 +1,5 @@
+import type { Gender } from "./Gender";
+
 export type Adherent = {
   id?: string;
   firstName?: string;
@@ -5,4 +7,5 @@ export type Adherent = {
   birthDate?: string;
   email?: string;
   address?: string;
+  gender?: Gender;
 };
