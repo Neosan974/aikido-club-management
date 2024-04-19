@@ -14,16 +14,28 @@
       </NTooltip>
     </NCol>
   </NRow>
+  <NFlex :align="'center'" justify="center" style="padding-top: 2em">
+    <NCard style="width: 500px">
+      <VChart style="height: 400px" :option="chartOption" />
+    </NCard>
+  </NFlex>
 </template>
 
 <script setup lang="ts">
-import { NRow, NCol, NStatistic, NTooltip } from "naive-ui";
+import { NRow, NCol, NStatistic, NTooltip, NCard, NFlex } from "naive-ui";
 import { useAdherentStore } from "@/stores/adherent";
 import { computed, onBeforeMount } from "vue";
 import { storeToRefs } from "pinia";
 import { useAppFetch } from "@/composables/appFetch";
 import type { Adherent } from "@/model/Adherent";
 import { useDashboard } from "@/composables/dashboard";
+import VChart from "vue-echarts";
+import { use } from "echarts/core";
+import { CanvasRenderer } from "echarts/renderers";
+import { GridComponent, LegendComponent, TitleComponent, TooltipComponent } from "echarts/components";
+import { PieChart } from "echarts/charts";
+
+use([CanvasRenderer, TitleComponent, TooltipComponent, LegendComponent, GridComponent, PieChart]);
 
 const { adherents } = storeToRefs(useAdherentStore());
 const { canAbort, abort } = useAppFetch<Adherent[]>("adherents", {
@@ -43,6 +55,33 @@ const otherGenderAdherents = computed(() => adherents.value.filter((adherent) =>
 const { meanAge: maleMeanAge } = useDashboard(maleAdherents);
 const { meanAge: femaleMeanAge } = useDashboard(femaleAdherents);
 const { meanAge: otherGenderMeanAge } = useDashboard(otherGenderAdherents);
+
+const chartOption = computed(() => ({
+  title: {
+    text: "Number od adherents per gender",
+    left: "center",
+  },
+  tooltip: {
+    trigger: "item",
+  },
+  legend: {
+    orient: "horizontal",
+    left: "center",
+    bottom: "bottom",
+  },
+  series: [
+    {
+      name: "Gender",
+      type: "pie",
+      radius: "60%",
+      data: [
+        { value: maleAdherents.value.length, name: "Male" },
+        { value: femaleAdherents.value.length, name: "Female" },
+        { value: otherGenderAdherents.value.length, name: "Other" },
+      ],
+    },
+  ],
+}));
 
 onBeforeMount(() => {
   if (canAbort) {
