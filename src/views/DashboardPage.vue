@@ -58,7 +58,7 @@ const { meanAge: otherGenderMeanAge } = useDashboard(otherGenderAdherents);
 
 const chartOption = computed(() => ({
   title: {
-    text: "Number od adherents per gender",
+    text: "Number of adherents per gender",
     left: "center",
   },
   tooltip: {
