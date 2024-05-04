@@ -14,3 +14,12 @@ app.use(createPinia());
 app.use(router);
 
 app.mount("#app");
+
+declare global {
+  interface Object {
+    groupBy<T>(values: T[], func: (x: T) => string): Record<string, T[]>;
+  }
+  interface Array<T> {
+    toSorted(func: (a: T, b: T) => 0 | 1 | -1): T[];
+  }
+}
