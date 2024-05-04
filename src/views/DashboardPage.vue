@@ -18,6 +18,12 @@
     <NCard style="width: 500px">
       <GenderPieChart :data="genderChartData" />
     </NCard>
+    <NCard style="width: 500px">
+      <Suspense>
+        <AgeGradeBarChart />
+        <template #fallback>Loading ...</template>
+      </Suspense>
+    </NCard>
   </NFlex>
 </template>
 
@@ -30,6 +36,7 @@ import { useAppFetch } from "@/composables/appFetch";
 import type { Adherent } from "@/model/Adherent";
 import { useDashboard } from "@/composables/dashboard";
 import GenderPieChart from "@/components/charts/GenderPieChart.vue";
+import AgeGradeBarChart from "@/components/charts/AgeGradeBarChart.vue";
 
 const { adherents } = storeToRefs(useAdherentStore());
 const { canAbort, abort } = useAppFetch<Adherent[]>("adherents", {
